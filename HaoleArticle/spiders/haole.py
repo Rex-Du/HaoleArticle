@@ -4,7 +4,7 @@ import re
 import scrapy
 from scrapy.http import Request
 
-from HaoleArticle.items import HaolearticleItem
+from HaoleArticle.items import ArticleItem
 
 
 class HaoleSpider(scrapy.Spider):
@@ -43,7 +43,7 @@ class HaoleSpider(scrapy.Spider):
         title = response.xpath('//div[@class="title"]/text()').extract_first()
         content_html = response.xpath('//div[@class="center margintop border clear main"]').extract()
         if title and content_html:
-            haole_item = HaolearticleItem()
+            haole_item = ArticleItem()
             haole_item['title'] = title
             haole_item['content_html'] = content_html
             yield haole_item

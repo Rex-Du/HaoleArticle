@@ -14,5 +14,6 @@ from scrapy.cmdline import execute
 
 
 sys.path.append(os.path.basename(os.path.abspath(__file__)))
+execute(['scrapy', 'crawl', 'gebi'])
 execute(['scrapy', 'crawl', 'haole'])
 
