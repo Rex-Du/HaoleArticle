@@ -21,11 +21,18 @@ class GebiSpider(scrapy.Spider):
         # //*[@id="main-content"]/main/table[1]/tbody/tr/td[1]/a
         # //*[@id="main-content"]/main/table[4]/tbody/tr/td[1]/a
         # //*[@id="main-content"]/main/table[1]/tbody/tr/td[1]/a
-        detail_page_urls = response.xpath('//*[@id="main-content"]//td/a/@href').extract()
-        title = response.xpath('//*[@id="main-content"]//td/a/text()').extract_first()
-        for detail_page in detail_page_urls:
-            detail_page_url = self.url_home + detail_page
-            yield Request(url=detail_page_url, callback=self.parse_detail_url, meta={'title': title})
+        td_tags = response.xpath('//*[@id="main-content"]//td')
+        for td in td_tags:
+            if td.xpath('a'):
+                detail_page_url = self.url_home + td.xpath('a/@href').extract_first()
+                title = td.xpath('a/text()').extract_first()
+                yield Request(url=detail_page_url, callback=self.parse_detail_url,
+                              meta={'title': title})
+        # detail_page_urls = response.xpath('//*[@id="main-content"]//td/a/@href').extract()
+        # title = response.xpath('//*[@id="main-content"]//td/a/text()').extract_first()
+        # for detail_page in detail_page_urls:
+        #     detail_page_url = self.url_home + detail_page
+        #     yield Request(url=detail_page_url, callback=self.parse_detail_url, meta={'title': title})
 
         # //*[@id="pager"]/li[8]/a
         # //*[@id="pager"]/li[8]/a
