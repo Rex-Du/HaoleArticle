@@ -19,8 +19,6 @@ class GebiSpider(scrapy.Spider):
 
     def parse(self, response):
         # //*[@id="main-content"]/main/table[1]/tbody/tr/td[1]/a
-        # //*[@id="main-content"]/main/table[4]/tbody/tr/td[1]/a
-        # //*[@id="main-content"]/main/table[1]/tbody/tr/td[1]/a
         td_tags = response.xpath('//*[@id="main-content"]//td')
         for td in td_tags:
             if td.xpath('a'):
@@ -28,11 +26,6 @@ class GebiSpider(scrapy.Spider):
                 title = td.xpath('a/text()').extract_first()
                 yield Request(url=detail_page_url, callback=self.parse_detail_url,
                               meta={'title': title})
-        # detail_page_urls = response.xpath('//*[@id="main-content"]//td/a/@href').extract()
-        # title = response.xpath('//*[@id="main-content"]//td/a/text()').extract_first()
-        # for detail_page in detail_page_urls:
-        #     detail_page_url = self.url_home + detail_page
-        #     yield Request(url=detail_page_url, callback=self.parse_detail_url, meta={'title': title})
 
         # //*[@id="pager"]/li[8]/a
         # //*[@id="pager"]/li[8]/a
@@ -50,4 +43,6 @@ class GebiSpider(scrapy.Spider):
             haole_item = ArticleItem()
             haole_item['title'] = title
             haole_item['content_html'] = content_html
+            haole_item['platform'] = 'gebi'
+            haole_item['platform_url'] = self.url_home
             yield haole_item

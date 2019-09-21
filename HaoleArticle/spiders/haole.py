@@ -46,4 +46,6 @@ class HaoleSpider(scrapy.Spider):
             haole_item = ArticleItem()
             haole_item['title'] = title
             haole_item['content_html'] = content_html
+            haole_item['platform'] = 'haole'
+            haole_item['platform_url'] = self.url_home
             yield haole_item
