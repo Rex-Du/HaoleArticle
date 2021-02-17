@@ -16,7 +16,8 @@ from scrapy.cmdline import execute
 sys.path.append(os.path.basename(os.path.abspath(__file__)))
 # execute(['scrapy', 'crawl', 'gebi'])
 # execute(['scrapy', 'crawl', 'haole'])
-execute(['scrapy', 'crawl', 'yibuo'])
+# execute(['scrapy', 'crawl', 'yibuo'])
+execute(['scrapy', 'crawl', 'liulian'])
 
 # coding=utf8
 # -*- coding: utf-8 -*-
